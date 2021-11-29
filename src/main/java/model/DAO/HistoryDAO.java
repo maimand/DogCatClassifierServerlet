@@ -52,8 +52,9 @@ public class HistoryDAO {
 
 	public void insertHistory(String imageUrl, String description, int userId) {
 		try {
+			String pathString  = imageUrl.replace("\\", "\\\\");
 			String sql = "INSERT INTO " + TABLE_HISTORY_NAME + "(" + COL_IMAGE_URL + "," + COL_DESCRIPTION + ","
-					+ COL_USER_ID + ")" + " VALUES(" + "'" + imageUrl + "'," + "'" + description + "'," + userId + ")";
+					+ COL_USER_ID + ")" + " VALUES(" + "'" + pathString + "'," + "'" + description + "'," + userId + ")";
 
 			statement.execute(sql);
 		} catch (SQLException e) {

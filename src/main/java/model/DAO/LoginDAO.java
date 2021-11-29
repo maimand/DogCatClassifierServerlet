@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import model.Bean.MyJDBC;
+import model.Bean.User;
 
 public class LoginDAO {
 	private static LoginDAO myUserTable;
@@ -44,32 +45,34 @@ public class LoginDAO {
 		statement.execute(sql);
 	}
 
-	/**
-	 * checkLogin 
-	 * return : 
-	 * userID: login success 
-	 * -1 : username not found
-	 * -2 : password wrong
-	 * -3 : error unKnow
-	 *
-	 */
-	public int checkLogin(String username, String password) {
+	public void addUser(String username, String password) {
+		try {
+			String sql = "INSERT INTO " + TABLE_LOGIN_NAME + "(" + COL_USERNAME + "," + COL_PASSWORD + ")" + " VALUES("
+					+ "'" + username + "'," + "'" + password + "')" ;
+
+			statement.execute(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public User checkLogin(String username, String password) {
 		try {
 			String sql = "SELECT * FROM Login WHERE " + COL_USERNAME + "= " + "'" + username + "'";
 			ResultSet resultSet = statement.executeQuery(sql);
 			if (resultSet.next()) {
 				String emailResult = resultSet.getString(COL_PASSWORD);
 				if (password.equals(emailResult)) {
-					return resultSet.getInt(COL_ID_USER);
+					return new User(resultSet.getInt(COL_ID_USER), resultSet.getString(COL_USERNAME));
 				} else {
-					return -2;
+					return null;
 				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			return -3;
+			return null;
 		}
-		return -1;
+		return null;
 	}
 }

@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,39 +10,33 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class HistoryController
- */
+import model.BO.HistoryBO;
+import model.Bean.History;
+import model.Bean.User;
+
 @WebServlet("/history")
 public class HistoryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public HistoryController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	private HistoryBO historyBO;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Load data
+	public HistoryController() {
+		this.historyBO = new HistoryBO();
+		System.out.println("History open");
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		User user = (User) request.getSession().getAttribute("user");
 		
-		int userId = request.getSession().getAttribute("userId") != null
-				? (Integer) request.getSession().getAttribute("userId")
-				: 0;
-		
+		List<History> histories = historyBO.getHistoriesByUserId(user.userId);
+		request.setAttribute("histories", histories);
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher("History.jsp");
 		dispatcher.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

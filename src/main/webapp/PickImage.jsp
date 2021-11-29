@@ -92,7 +92,7 @@
 </style>
 <div style="text-align: center">
 <h2>CHOOSE PICTURE</h2>
-	<form class="frm" method="post" action="UploadFileServlet" enctype="multipart/form-data">
+	<form class="frm" method="post" action="<%=request.getContextPath()%>/home" enctype="multipart/form-data">
 		Select file to upload the picture: </br></br><input type="file" name="file" size="60" accept=".jpg, .png" multiple/> 
 		 <input type="submit" class="btn" value="Upload" />
 	</form>

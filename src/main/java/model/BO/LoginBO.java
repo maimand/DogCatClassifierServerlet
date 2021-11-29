@@ -2,6 +2,7 @@ package model.BO;
 
 import java.sql.SQLException;
 
+import model.Bean.User;
 import model.DAO.LoginDAO;
 
 public class LoginBO {
@@ -15,7 +16,11 @@ public class LoginBO {
 		}
 	}
 	
-	public int checkLogin(String username, String password) {
+	public User checkLogin(String username, String password) {
 		return loginDAO.checkLogin(username, password);
+	}
+	
+	public void addUser(String username, String password) {
+		loginDAO.addUser(username, password);
 	}
 }
