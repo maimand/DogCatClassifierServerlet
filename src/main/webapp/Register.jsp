@@ -1,4 +1,3 @@
-<%@page import="model.Bean.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -110,26 +109,14 @@ h1 {
 	width: 100%;
 }
 </style>
-	<%
-	User user = (User) request.getSession().getAttribute("user");
-	if (user == null) {
-	%>
 	<div style="text-align: center">
-		<h1>LOGIN</h1>
-		<form class="frm" class="frm"
-			action="<%=request.getContextPath()%>/login" method="post">
-			<input name="username" class="inp" placeholder="Email" size="30" />
-			<input type="password" class="inp" name="password"
-				placeholder="Password" size="30" />
-			<button type="submit" class="btn">Login</button>
+		<h1>SIGN UP</h1>
+		<form class="frm" class="frm" action="<%=request.getContextPath()%>/register" method="post">
+			<input name="username" class="inp" placeholder="Email" size="30" /> <input
+				type="password" class="inp" name="password" placeholder="Password"
+				size="30" />
+			<button type="submit" class="btn">SIGN UP</button>
 		</form>
-		<a href="<%=request.getContextPath()%>/register">Register</a>
 	</div>
-	<%
-	} else {
-	String contextPath = request.getContextPath();
-	response.sendRedirect(contextPath + "/");
-	}
-	%>
 </body>
 </html>

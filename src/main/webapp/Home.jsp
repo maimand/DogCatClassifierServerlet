@@ -167,9 +167,9 @@ nav .menu ul li a {
 
 		<%
 		User user = (User) request.getSession().getAttribute("user");
-		String name = "";
 		if (user != null)
-			name = user.username;
+		{
+			String name = user.username;
 		%>
 		<p>
 			Hello
@@ -180,6 +180,12 @@ nav .menu ul li a {
 			<a href="<%=request.getContextPath()%>/history"
 				class="btn btn-success">History</a>
 		</div>
+		<%
+		} else {
+			String contextPath = request.getContextPath();
+			response.sendRedirect(contextPath + "/login");
+		}
+		%>
 	</div>
 	<footer>
 		<p>
